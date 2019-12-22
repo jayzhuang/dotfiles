@@ -1,0 +1,29 @@
+[user]
+	email = jayzhuang1990@gmail.com
+  name = Jay Zhuang
+[diff]
+  tool = vimdiff
+[difftool]
+  prompt = false
+[merge]
+  tool = vimdiff
+  conflictstyle = diff3
+[mergetool]
+  prompt = true
+  keepBackup = false
+[core]
+	pager = cat
+  editor = nvim
+[alias]
+  st = status
+  ci = commit
+  br = branch
+  co = checkout
+  df = diff
+  dc = diff --cached
+  lg = log -p
+  lol = log --graph --decorate --pretty=oneline --abbrev-commit
+  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+  ls = ls-files
+  # Show files ignored by git:
+  ign = ls-files -o -i --exclude-standard
