@@ -1,22 +1,19 @@
 call plug#begin()
 
-Plug 'Quramy/tsuquyomi'
+Plug 'HerringtonDarkholme/yats.vim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'Valloric/YouCompleteMe'
 Plug 'benmills/vimux'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'dag/vim-fish'
 Plug 'fatih/vim-go'
 Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
 Plug 'google/vim-maktaba'
-Plug 'itchyny/vim-gitbranch'
 Plug 'junegunn/fzf'
-Plug 'leafgarland/typescript-vim'
 Plug 'mileszs/ack.vim'
 Plug 'roxma/vim-tmux-clipboard'
 Plug 'rust-lang/rust.vim'
-Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
-Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/Zenburn'
@@ -34,6 +31,7 @@ call plug#end()
 
 augroup autoformat_settings
   autocmd FileType bzl AutoFormatBuffer buildifier
+  autocmd FileType fish AutoFormatBuffer fish_indent
   autocmd FileType go AutoFormatBuffer gofmt
   autocmd FileType typescript AutoFormatBuffer clang-format
 augroup END
@@ -134,11 +132,6 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
-" Insert a hash rocket with <c-l>
-imap <c-l> <space>=><space>
-" Can't be bothered to understand ESC vs <c-c> in insert mode
-imap <c-c> <esc>
-nnoremap <leader><leader> <c-^>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " OPEN FILES IN DIRECTORY OF CURRENT FILE
@@ -175,18 +168,6 @@ map <leader>s :SyntasticCheck<CR>
 " VIMUX COMMANDS (RELIES ON vimux)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>vp :VimuxPromptCommand<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Gstatus (RELIES ON fugitive)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>gs :Gstatus<CR>
-map <leader>gc :Gcommit<CR>
-map <leader>gd :Gdiff<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NERDTree
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>n :NERDTreeToggle<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ACK
