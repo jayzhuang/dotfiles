@@ -1,5 +1,5 @@
 [user]
-	email = jayzhuang1990@gmail.com
+  email = jayzhuang1990@gmail.com
   name = Jay Zhuang
 [diff]
   tool = vimdiff
@@ -12,7 +12,7 @@
   prompt = true
   keepBackup = false
 [core]
-	pager = cat
+  pager = cat
   editor = nvim
 [alias]
   st = status
