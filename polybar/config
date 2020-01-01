@@ -1,0 +1,159 @@
+;=====================================================
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/jaagr/polybar
+;
+;   The README contains alot of information
+;
+;=====================================================
+
+; Zenburn colors https://en.wikipedia.org/wiki/Wikipedia:Zenburn
+; All with dd level transparency
+
+[color]
+trans = #00000000
+bg = #ee3f3f3f
+fg = #eedcdccc
+
+warning-fg = #eeffffff
+warning-bg = #ee333333
+cursor-fg = #ee000d18
+cursor-bg = #ee8faf9f
+
+status-fg = #ee2e4340
+status-bg = #eeccdc90
+status-nc-fg = #ee2e3330
+status-nc-bg = #ee88b090
+
+red-fg = #ee333333
+red-bg = #eef18c96
+green-fg = #eeffffe0
+green-bg = #ee284f28
+yellow-fg = #ee385f38
+yellow-bg = #eef8f893
+
+## Material Colors
+
+red = #dde53935
+pink = #ddd81b60
+purple = #dd8e24aa
+deep-purple = #dd5e35b1
+indigo = #dd3949ab
+blue = #dd1e88e5
+light-blue = #dd039be5
+cyan = #dd00acc1
+teal = #dd00897b
+green = #dd43a047
+light-green = #dd7cb342
+lime = #ddc0ca33
+yellow = #ddfdd835
+amber = #ddffb300
+orange = #ddfb8c00
+deep-orange = #ddf4511e
+brown = #dd6d4c41
+grey = #dd757575
+blue-gray = #dd546e7a
+
+;==========================================================
+
+[bar/jay]
+height = 50
+monitor = ${env:MONITOR:}
+
+background = ${color.bg}
+foreground = ${color.fg}
+
+; https://github.com/adobe-fonts/source-code-pro
+font-0 = "SourceCodeProMedium:pixelsize=18;2"
+; https://github.com/google/material-design-icons/tree/master/iconfont
+font-1 = "Material Icons:size=16;4"
+
+tray-position = right
+tray-background = ${color.bg}
+
+border-size = 5
+border-color = ${color.trans}
+
+padding-left = 1
+padding-right = 2
+module-margin-left = 1
+module-margin-right = 1
+
+modules-left = i3
+modules-center = time
+modules-right = backlight cpu memory battery
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+label-mode-padding = 1
+label-mode-foreground = ${color.fg}
+label-mode-background = ${color.bg}
+
+label-focused = %index%
+label-focused-foreground = ${color.cursor-fg}
+label-focused-background = ${color.cursor-bg}
+label-focused-padding = 1
+
+label-unfocused = %index%
+label-unfocused-padding = 1
+
+label-visible = %index%
+label-visible-background = ${color.bg}
+label-visible-padding = 1
+
+label-urgent = %index%
+label-urgent-foreground = ${color.warning-fg}
+label-urgent-background = ${color.warning-bg}
+label-urgent-padding = 1
+
+[module/time]
+type = internal/date
+interval = 30
+label = %time%
+time = " %Y-%m-%d %H:%M"
+
+[module/backlight]
+type = custom/script
+exec = xbacklight -get
+format = <label>
+label =  %output%%
+format-foreground = ${color.status-fg}
+format-background = ${color.status-bg}
+format-padding = 1
+scroll-up = xbacklight -inc 5
+scroll-down = xbacklight -dec 5
+
+[module/cpu]
+type = internal/cpu
+interval = 10
+format-foreground = ${color.status-nc-fg}
+format-background = ${color.status-nc-bg}
+format-padding = 1
+label =  %percentage%%
+
+[module/memory]
+type = internal/memory
+interval = 10
+format-foreground = ${color.yellow-fg}
+format-background = ${color.yellow-bg}
+format-padding = 1
+label =  %percentage_used%%
+
+[module/battery]
+type = internal/battery
+battery = BAT1
+adapter = AC
+
+label-charging =  %percentage%%
+format-charging-foreground = ${color.green-fg}
+format-charging-background = ${color.green-bg}
+format-charging-padding = 1
+
+label-discharging =  %percentage%%
+format-discharging-foreground = ${color.red-fg}
+format-discharging-background = ${color.red-bg}
+format-discharging-padding = 1
