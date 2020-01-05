@@ -32,28 +32,6 @@ green-bg = #ee284f28
 yellow-fg = #ee385f38
 yellow-bg = #eef8f893
 
-## Material Colors
-
-red = #dde53935
-pink = #ddd81b60
-purple = #dd8e24aa
-deep-purple = #dd5e35b1
-indigo = #dd3949ab
-blue = #dd1e88e5
-light-blue = #dd039be5
-cyan = #dd00acc1
-teal = #dd00897b
-green = #dd43a047
-light-green = #dd7cb342
-lime = #ddc0ca33
-yellow = #ddfdd835
-amber = #ddffb300
-orange = #ddfb8c00
-deep-orange = #ddf4511e
-brown = #dd6d4c41
-grey = #dd757575
-blue-gray = #dd546e7a
-
 ;==========================================================
 
 [bar/jay]
@@ -79,9 +57,9 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 1
 
-modules-left = i3
+modules-left = battery backlight i3
 modules-center = time
-modules-right = backlight cpu memory battery
+modules-right = cpu memory
 
 [module/i3]
 type = internal/i3
@@ -141,7 +119,7 @@ interval = 10
 format-foreground = ${color.yellow-fg}
 format-background = ${color.yellow-bg}
 format-padding = 1
-label =  %percentage_used%%
+label =  %gb_used%/%gb_total%
 
 [module/battery]
 type = internal/battery

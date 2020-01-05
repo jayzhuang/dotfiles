@@ -1,0 +1,122 @@
+# Configuration for Alacritty, the GPU enhanced terminal emulator.
+# https://github.com/jwilm/alacritty#configuration
+
+env:
+  TERM: xterm-256color
+
+scrolling:
+  history: 100000
+  # Number of lines the viewport will move for every line scrolled when
+  # scrollback is enabled (history > 0).
+  multiplier: 3
+  # Scroll to the bottom when new text is written to the terminal.
+  auto_scroll: false
+
+# Spaces per Tab (changes require restart)
+#
+# This setting defines the width of a tab in cells.
+#
+# Some applications, like Emacs, rely on knowing about the width of a tab.
+# To prevent unexpected behavior in these applications, it's also required to
+# change the `it` value in terminfo when altering this setting.
+tabspaces: 2
+
+font:
+  normal:
+    family: Source Code Pro
+    style: Medium
+  bold:
+    family: Source Code Pro
+    style: Bold
+  italic:
+    family: Source Code Pro
+    style: Italic
+  bold_italic:
+    family: Source Code Pro
+    style: Bold Italic
+  size: 9.0
+
+# Base16 Zenburn 256
+colors:
+  primary:
+    background: '0x383838'
+    foreground: '0xdcdccc'
+  cursor:
+    text: '0x383838'
+    cursor: '0xdcdccc'
+  normal:
+    black:   '0x383838'
+    red:     '0xdca3a3'
+    green:   '0x5f7f5f'
+    yellow:  '0xe0cf9f'
+    blue:    '0x7cb8bb'
+    magenta: '0xdc8cc3'
+    cyan:    '0x93e0e3'
+    white:   '0xdcdccc'
+  bright:
+    black:   '0x6f6f6f'
+    red:     '0xdca3a3'
+    green:   '0x5f7f5f'
+    yellow:  '0xe0cf9f'
+    blue:    '0x7cb8bb'
+    magenta: '0xdc8cc3'
+    cyan:    '0x93e0e3'
+    white:   '0xffffff'
+  indexed_colors:
+    - { index: 16, color: '0xdfaf8f' }
+    - { index: 17, color: '0x000000' }
+    - { index: 18, color: '0x404040' }
+    - { index: 19, color: '0x606060' }
+    - { index: 20, color: '0x808080' }
+    - { index: 21, color: '0xc0c0c0' }
+
+# Background opacity
+#
+# Window opacity as a floating point number from `0.0` to `1.0`.
+# The value `0.0` is completely transparent and `1.0` is opaque.
+background_opacity: 0.95
+
+# Allow terminal applications to change Alacritty's window title.
+dynamic_title: true
+
+cursor:
+  # Values for `style`:
+  #   - ▇ Block
+  #   - _ Underline
+  #   - | Beam
+  style: Block
+
+live_config_reload: true
+
+# Shell
+#
+# You can set `shell.program` to the path of your favorite shell, e.g. `/bin/fish`.
+# Entries in `shell.args` are passed unmodified as arguments to the shell.
+#
+# Default:
+#   - (macOS) /bin/bash --login
+#   - (Linux/BSD) user login shell
+#   - (Windows) powershell
+shell:
+  program: /usr/bin/fish
+
+# Send ESC (\x1b) before characters when alt is pressed.
+alt_send_esc: true
+
+mouse:
+  # If this is `true`, the cursor is temporarily hidden when typing.
+  hide_when_typing: true
+  url:
+    # URL launcher
+    #
+    # This program is executed when clicking on a text which is recognized as a URL.
+    # The URL is always added to the command as the last parameter.
+    #
+    # When set to `None`, URL launching will be disabled completely.
+    #
+    # Default:
+    #   - (macOS) open
+    #   - (Linux/BSD) xdg-open
+    #   - (Windows) explorer
+    launcher:
+      program: xdg-open
