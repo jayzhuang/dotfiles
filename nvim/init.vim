@@ -1,38 +1,42 @@
 call plug#begin()
 
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'Valloric/YouCompleteMe'
-Plug 'benmills/vimux'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'dag/vim-fish'
-Plug 'fatih/vim-go'
-Plug 'google/vim-codefmt'
+" general & dependencies
+Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'google/vim-glaive'
 Plug 'google/vim-maktaba'
-Plug 'junegunn/fzf'
-Plug 'mileszs/ack.vim'
+" tmux
+Plug 'benmills/vimux'
+Plug 'christoomey/vim-tmux-navigator'
 Plug 'roxma/vim-tmux-clipboard'
-Plug 'rust-lang/rust.vim'
+" VCS
 Plug 'tpope/vim-fugitive'
+" UI
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/Zenburn'
-Plug 'vim-syntastic/syntastic'
+" auto complete / format
+Plug 'Valloric/YouCompleteMe'
+Plug 'google/vim-codefmt'
+" search
+Plug 'junegunn/fzf', {'on': 'FZF'}
+Plug 'mileszs/ack.vim', {'on': 'Ack'}
+Plug 'preservim/nerdtree', {'on': 'NERDTreeFind'}
+" language specific
+Plug 'HerringtonDarkholme/yats.vim', {'for': 'typescript'}
+Plug 'dag/vim-fish', {'for': 'fish'}
+Plug 'fatih/vim-go', {'for': 'go'}
+Plug 'rust-lang/rust.vim', {'for': 'rust'}
 
 let g:airline_theme='zenburn'
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_mode_map={'mode': 'passive'}
-
 let g:go_fmt_command = "goimports"
 let g:fish_indent_command = "fish_indent"
-let g:syntastic_go_checkers = ['goimports']
+if executable('rg')
+  let g:ackprg = 'rg --vimgrep'
+endif
 
 call plug#end()
 
 augroup autoformat_settings
-  autocmd FileType bzl AutoFormatBuffer buildifier
   autocmd FileType go AutoFormatBuffer gofmt
   autocmd FileType typescript AutoFormatBuffer clang-format
 augroup END
@@ -56,12 +60,10 @@ set laststatus=2
 set showmatch
 set incsearch
 set hlsearch
-set relativenumber
 " make searches case-sensitive only if they contain upper-case characters
 set ignorecase smartcase
 " highlight current line
 set cursorline
-" highlight CursorLine term=NONE cterm=NONE ctermbg=darkblue
 set cmdheight=1
 set switchbuf=useopen
 set winwidth=81
@@ -76,97 +78,61 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set backspace=indent,eol,start
 " display incomplete commands
 set showcmd
-" Enable highlighting for syntax
+" enable highlighting for syntax
 syntax on
-" Enable file type detection.
-" Use the default filetype settings, so that mail gets 'tw' set to 72,
-" 'cindent' is on in C files, etc.
-" Also load indent files, to automatically do language-dependent indenting.
+" enable file type detection.
+" also load indent files, to automatically do language-dependent indenting.
 filetype plugin indent on
 " Fix slow O inserts
 :set timeout timeoutlen=1000 ttimeoutlen=100
-" Normally, Vim messes with iskeyword when you open a shell file. This can
+" normally, Vim messes with iskeyword when you open a shell file. This can
 " leak out, polluting other file types even after a 'set ft=' change. This
 " variable prevents the iskeyword change so it can't hurt anyone.
 let g:sh_noisk=1
 " Modelines (comments that set vim options on a per-file basis)
 set modeline
 set modelines=3
-" Turn folding off
-" set foldmethod=manual
-" set nofoldenable
-" Insert only one space when joining lines that contain sentence-terminating
+" insert only one space when joining lines that contain sentence-terminating
 " punctuation like `.`.
 set nojoinspaces
-" If a file is changed outside of vim, automatically reload it without asking
+" if a file is changed outside of vim, automatically reload it without asking
 set autoread
-" It's time for "+y to go away
 set clipboard+=unnamedplus
-" Disable scratch window
+" disable scratch window
 set completeopt-=preview
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ZENBURN!!!BURN!!!
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set t_Co=256
 colors zenburn
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" STATUS LINE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-:set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
-
 let mapleader=","
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MISC KEY MAPS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Move around splits with <c-hjkl>
+" move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
-map <leader>e :FZF<CR>
-map <leader>q :q!<CR>
-map <leader>w :wq<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" HANDLE TRAILING WHITESPACES
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" frequent file operations
+nnoremap <leader>o <c-w>o
+noremap <leader>e :FZF<CR>
+noremap <leader>q :q!<CR>
+noremap <leader>w :wq<CR>
+" highlight / remove trailing spaces
 match ErrorMsg '\s\+$'
-nnoremap <Leader>rtw :%s/\s\+$//e<CR>
+noremap <Leader>rtw :%s/\s\+$//e<CR>
+" Simple spell check
+noremap <leader>l :setlocal spell spelllang=en_us<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SPELL CHECK
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <Leader>l :setlocal spell spelllang=en_us<CR>
+nnoremap <leader>n :NERDTreeFind<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CODE FORMATTING (RELIES ON codefmt)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <leader>f :FormatCode<CR>
-vmap <leader>f :FormatLines<CR>
-autocmd FileType rust nmap <leader>f :RustFmt<CR>
+nnoremap <leader>f :FormatCode<CR>
+vnoremap <leader>f :FormatLines<CR>
+" TODO(jayzhuang): rustfmt is supported by codefmt, remove line below
+" autocmd FileType rust nnoremap <leader>f :RustFmt<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SYNTASTIC CHECK (RELIES ON syntastic)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Conflict with old horizontal split, which is commented to use FZF instead
-map <leader>s :SyntasticCheck<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" VIMUX COMMANDS (RELIES ON vimux)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>vp :VimuxPromptCommand<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ACK
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>a :Ack! 
-map <leader>c :Ack! "\b<cword>\b"<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""	
-" Gstatus (RELIES ON fugitive)	
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""	
-map <leader>gs :Gstatus<CR>	
-map <leader>gc :Gcommit<CR>	
-map <leader>gd :Gdiff<CR>
+" ack.vim - ack (rg) stuff
+noremap <leader>a :Ack! "
+noremap <leader>c :Ack! "\b<cword>\b"<CR>
+" fugitive - git stuff
+" noremap <leader>gs :Gstatus<CR>
+" noremap <leader>gr :Grebase 
+" noremap <leader>gc :Gcommit 
+noremap <leader>gd :Gvdiffsplit 

@@ -2,15 +2,16 @@
   email = jayzhuang1990@gmail.com
   name = Jay Zhuang
 [diff]
-  tool = vimdiff
+  tool = nvim
 [difftool]
   prompt = false
 [merge]
-  tool = vimdiff
-  conflictstyle = diff3
+  tool = nvim
 [mergetool]
   prompt = true
   keepBackup = false
+[mergetool "nvim"]
+  cmd = nvim -d $MERGED $LOCAL $REMOTE -c 'wincmd J'
 [core]
   pager = cat
   editor = nvim
@@ -19,11 +20,12 @@
   ci = commit
   br = branch
   co = checkout
+  rb = rebase
+  mt = mergetool
   df = diff
   dc = diff --cached
+  dfc = diff --compact-summary
+  l = lol -10
   lg = log -p
   lol = log --graph --decorate --pretty=oneline --abbrev-commit
   lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
-  ls = ls-files
-  # Show files ignored by git:
-  ign = ls-files -o -i --exclude-standard
