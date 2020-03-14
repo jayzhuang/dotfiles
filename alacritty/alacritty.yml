@@ -34,7 +34,7 @@ font:
   bold_italic:
     family: Source Code Pro
     style: Bold Italic
-  size: 9.0
+  size: 8.0
 
 # Base16 Zenburn 256
 colors:
@@ -98,7 +98,7 @@ live_config_reload: true
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
 shell:
-  program: /usr/bin/fish
+  program: /usr/bin/zsh
 
 # Send ESC (\x1b) before characters when alt is pressed.
 alt_send_esc: true
